@@ -35,7 +35,7 @@ function renderCalendar(){
  dates.forEach((d,i)=>{let day=parse(d),inRange=d>=state.start&&d<=state.end;cell('head',`${day.toLocaleDateString(undefined,{weekday:'short'})}<br>${day.toLocaleDateString(undefined,{month:'short',day:'numeric'})}${inRange?'':'<br><small>Outside course</small>'}`,1,i+2)});
  times.forEach((time,r)=>{
   let row=r+2;
-  cell('time'+(time%30!==0?' half-step':''),time%30===0?fmt(time):'',row,1);
+  if(time%30===0){const timeCell=cell('time',fmt(time),row,1);timeCell.style.gridRow=`${row} / span 2`;timeCell.style.display='flex';timeCell.style.alignItems='center';}
   dates.forEach((date,i)=>{
    let b=blocked(date,time),inRange=date>=state.start&&date<=state.end;
    let lunch=time>=720&&time<780;
